@@ -34,15 +34,23 @@ export function memoize(){
   let memoizedSoma = memoize(soma);
 
   while (true) {
-    let inputA = prompt("Digite o primeiro número (0 para sair): ");
-    let inputB = prompt("Digite o segundo número (0 para sair): ");
+    let inputA = prompt("Digite o primeiro número (deixe vazio para encerrar): ");
+
+    if (!inputA) {
+      console.log("\nencerrando...\n")
+      break;
+    }
+    let inputB = prompt("Digite o segundo número (deixe vazio para encerrar): ");
+
+    if (!inputB) {
+      console.log("\nencerrando...\n")
+      break;
+    }
 
     let a = parseInt(inputA, 10);
     let b = parseInt(inputB, 10);
 
-    if (a === 0 && b === 0) {
-      break;
-    }
+    
 
     memoizedSoma(a, b);
   }

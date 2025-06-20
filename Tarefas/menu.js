@@ -13,6 +13,8 @@ let prompt = promptSync();
 function callAgrupamento(){
     const vendas = [];
 
+    console.log("insira o nome da pessoa e a venda feita, finalize para ordenar as pessoas por quando gastaram\n");
+
 while (true) {
   const cliente = prompt("Digite o nome do cliente (deixe vazio para encerrar):");
 
@@ -68,7 +70,7 @@ async function callDebounce(){
   }
 
   let texto = prompt("Insira uma frase para ser utilizada no exemplo de delay: ");
-  let delay = parseInt(prompt("\nInsira quanto tempo deseja que a mensagem demore (em milissegundos): "));
+  let delay = parseInt(prompt("Insira quanto tempo deseja que a mensagem demore (em milissegundos): "));
 
   const debounced = debounce(() => mensagem("\n"+texto), delay);
 
@@ -91,9 +93,9 @@ function validarData() {
   let ano = parseInt(prompt("Informe o ano: "));
   let validate = ehDataValida(dia, mes, ano);
   if (validate){
-    console.log("Data Valida!")
+    console.log("\nData Valida!")
   }else{
-    console.log("Data invalida!")
+    console.log("\nData invalida!")
   }
 }
 

@@ -5,7 +5,6 @@
 
 export function debounce(fn, delay) {
   let timeout;
-console.time('Tempo de processamento');
   return function (...args) {
     
     return new Promise((resolve) => {
