@@ -38,3 +38,4 @@ if (typeof dia !== 'number' || typeof mes !== 'number' || typeof ano !== 'number
 
     return true
 }
+

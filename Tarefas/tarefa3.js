@@ -31,5 +31,3 @@ export function palavrasUnicas(){
 
     console.log(unicas);
 }
-
-palavrasUnicas()

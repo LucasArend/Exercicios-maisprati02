@@ -3,7 +3,7 @@
 // em ms, retornando uma nova função que só executa fn se não for
 // chamada novamente dentro do intervalo.
 
-function debounce(fn, delay) {
+export function debounce(fn, delay) {
   let timeout;
 
   return function (...args) {
@@ -14,11 +14,3 @@ function debounce(fn, delay) {
     }, delay);
   };
 }
-
-function mensagem() {
-  console.log("funcionou!");
-}
-
-
-
-debounce(mensagem, 2000)();

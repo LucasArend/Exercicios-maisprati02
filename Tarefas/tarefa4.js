@@ -2,7 +2,7 @@
 // Implemente function fatorial(n) de forma recursiva; trate n < 0 lançando
 // um Error, e n === 0 retornando 1.
 
-function fatorial(n) {
+export function fatorial(n) {
   if (n < 0) {
     console.log("O numero não pode ser zero!");
   }
@@ -11,5 +11,3 @@ function fatorial(n) {
   }
   return n * fatorial(n - 1);
 }
-
-fatorial(3)
