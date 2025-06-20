@@ -3,20 +3,78 @@ import {jogoAdvinhacao} from './tarefa2.js';
 import {palavrasUnicas} from './tarefa3.js';
 import {fatorial} from './tarefa4.js';
 import {debounce} from './tarefa5.js';
-// import {jogoAdvinhacao} from './tarefa6.js';
-// import {jogoAdvinhacao} from './tarefa7.js';
-// import {jogoAdvinhacao} from './tarefa8.js';
+import {memoize} from './tarefa6.js';
+import {nomesOrdenadosPorPreco} from './tarefa7.js';
+import {somarVendasPorCliente} from './tarefa8.js';
 import {convert} from './tarefa9.js';
 import promptSync from 'prompt-sync';
-const prompt = promptSync();
+let prompt = promptSync();
 
-function callDebounce(){
+function callAgrupamento(){
+    const vendas = [];
+
+while (true) {
+  const cliente = prompt("Digite o nome do cliente (deixe vazio para encerrar):");
+
+  if (!cliente) {
+    break; // Encerra se o nome do cliente for vazio ou cancelado
+  }
+
+  const totalInput = prompt(`Digite o total da venda para ${cliente}:`);
+  const total = parseFloat(totalInput);
+
+  if (isNaN(total)) {
+    alert("Total inválido. Tente novamente.");
+    continue;
+  }
+
+  vendas.push({ cliente, total });
+}
+
+const resultado = somarVendasPorCliente(vendas);
+console.log("Total de vendas por cliente:", resultado);
+}
+
+function callOrdenacao(){
+  let produtos = [];
+
+  console.log("insira o nome do prduto e o preço, finalize para ordenar os produtos pelo custo\n");
+
+while (true) {
+  let nome = prompt("Digite o nome do produto (deixe vazio para encerrar): ");
+
+  if (!nome) {
+    break;
+  }
+ 
+  let preco = parseInt(prompt("Digite o preço do produto: "));
+
+  if (isNaN(preco)) {
+    alert("Preço inválido. Tente novamente.");
+    continue;
+  }
+
+  produtos.push({ nome, preco });
+}
+
+let nomes = nomesOrdenadosPorPreco(produtos);
+console.log(nomes);
+}
+
+
+async function callDebounce(){
   function mensagem(texto) {
     console.log(texto);
   }
+
   let texto = prompt("Insira uma frase para ser utilizada no exemplo de delay: ");
-  let delay = parseInt(prompt("\ninsira quanto tempo deseja que a mensagem demore (o tempo é calculado em milissegundos): "));
-  debounce(() => mensagem(texto),delay)();
+  let delay = parseInt(prompt("\nInsira quanto tempo deseja que a mensagem demore (em milissegundos): "));
+
+  const debounced = debounce(() => mensagem("\n"+texto), delay);
+
+  
+  await debounced(); 
+
 
 
 }
@@ -65,7 +123,7 @@ function exibirMenu() {
   `);
 }
 
-async function executarOpcao(opcao) {
+export async function executarOpcao(opcao) {
   switch (opcao) {
     case 1:
       validarData();
@@ -83,10 +141,13 @@ async function executarOpcao(opcao) {
       await callDebounce();
       break;
     case 6:
+      memoize();
       break;
     case 7:
+      callOrdenacao();
       break;
     case 8:
+      callAgrupamento();
       break;
     case 9:
       callConvert()
@@ -106,16 +167,16 @@ while (opcao !== 0) {
   console.clear(); // Limpa o console
   exibirMenu();
   
-  const entrada = prompt("Escolha uma opção: ");
+  let entrada = prompt("Escolha uma opção: ");
   opcao = Number(entrada);
 
   if (isNaN(opcao)) {
     console.log("\n Entrada inválida! Digite um número.");
   } else {
-    executarOpcao(opcao);
+    await executarOpcao(opcao);
   }
 
-  if (opcao !== 0 && opcao !== 5) {
+  if (opcao !== 0) {
     prompt("\n🔸 Pressione [ENTER] para continuar...");
   }
 }

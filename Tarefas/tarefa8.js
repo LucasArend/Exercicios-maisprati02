@@ -14,7 +14,7 @@ const vendas = [
 ];
 
 
-function somarVendasPorCliente(vendas) {
+export function somarVendasPorCliente(vendas) {
   return vendas.reduce((acumulador, venda) => {
     const { cliente, total } = venda;
 

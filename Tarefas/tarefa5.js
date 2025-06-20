@@ -5,12 +5,14 @@
 
 export function debounce(fn, delay) {
   let timeout;
-
+console.time('Tempo de processamento');
   return function (...args) {
-
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
+    
+    return new Promise((resolve) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        resolve(fn.apply(this, args));
+      }, delay);
+    });
   };
 }
